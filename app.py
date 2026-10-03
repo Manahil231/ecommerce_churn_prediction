@@ -320,6 +320,7 @@ def page_churn():
         avg_delivery = st.slider("Average delivery days", 1.0, 10.0, 3.5, step=0.5)
         age = st.slider("Age", 18, 65, 30)
         membership = st.selectbox("Membership type", ["Standard", "Silver", "Gold", "Premium"])
+        tenure = st.number_input("Account age (days since signup)", min_value=0, max_value=2000, value=365, step=30)
         st.write("")
         st.caption("Average order value is calculated automatically: total spending / total orders.")
 
@@ -335,6 +336,7 @@ def page_churn():
             "avg_delivery_days": avg_delivery,
             "age": age,
             "membership_type": membership,
+            "tenure_days": tenure,
         }])
         probability = churn_model.predict_proba(customer)[0][1]
         will_churn = churn_model.predict(customer)[0] == 1
@@ -361,6 +363,8 @@ def page_churn():
         if will_churn:
             if days_since > 90:
                 st.write("- No order for a long time: send a **win-back offer** or a discount coupon.")
+            if tenure > 365 and total_orders <= 5:
+                st.write("- **Old account with few orders:** this customer is losing interest, so a personal offer can help.")
             if total_orders <= 3:
                 st.write("- New or low-activity customer: give **loyalty points** or free delivery.")
             st.write("- Re-engage the customer with an email or SMS.")

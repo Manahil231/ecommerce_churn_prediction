@@ -14,7 +14,7 @@ An end-to-end Data Science project built for the **Data Science Final Hackathon*
 | Task A | Inspected all tables, found data quality problems and cleaned them (every decision explained in the notebook) |
 | Task B | 5 business questions answered with **SQL** (`queries.sql`) |
 | Task C | 4 charts and 3 business insights |
-| Task D | **Churn model** (Logistic Regression vs Random Forest) with no data leakage |
+| Task D | **Churn model** (Logistic Regression vs Random Forest) with no data leakage, plus one engineered feature (`tenure_days`) |
 | Task E | **Neural network** (32 - 16 - 1) compared with the ML models, plus an overfitting / underfitting check |
 | Task F | **Sentiment model** (TF-IDF + Logistic Regression) |
 | Task G | **Streamlit app** with 3 pages (Dashboard, Churn Prediction, Sentiment Analysis) |
@@ -36,18 +36,19 @@ An end-to-end Data Science project built for the **Data Science Final Hackathon*
 ## 3. Results
 
 ### Churn prediction (Task D and E)
-Churn = a customer who bought before 31 May 2026 and made **no purchase** between 1 June and 31 August 2026. Features use only orders up to 31 May (no data leakage).
+Churn = a customer who bought before 31 May 2026 and made **no purchase** between 1 June and 31 August 2026. Features use only information up to 31 May (no data leakage). We used the **8 required features plus one engineered feature, `tenure_days`** (account age in days).
 
 | Model | Accuracy | Recall | F1 | ROC-AUC |
 |---|---|---|---|---|
-| **Logistic Regression (final)** | 0.720 | 0.839 | 0.746 | 0.785 |
-| Random Forest | 0.719 | 0.839 | 0.746 | 0.789 |
-| Neural Network (32-16-1) | 0.720 | 0.822 | 0.742 | 0.787 |
+| **Logistic Regression (final)** | 0.771 | 0.794 | 0.773 | 0.843 |
+| Random Forest | 0.774 | 0.855 | 0.787 | 0.844 |
+| Neural Network (32-16-1) | 0.778 | 0.858 | 0.791 | 0.841 |
 
+- **Feature engineering helped the most:** adding `tenure_days` raised accuracy from 0.720 to 0.771 and ROC-AUC from 0.785 to 0.843. It shows how fast a customer buys (orders compared to the age of the account). Other extra features (recent orders, reviews, discount) added almost nothing.
 - All three models perform almost the same, so the **simplest and most explainable model (Logistic Regression)** was selected.
-- **Overfitting check:** Logistic Regression and the neural network fit well (train and test scores are close). Random Forest overfits slightly (train ROC-AUC 0.87, test 0.79).
+- **Overfitting check:** Logistic Regression and the neural network fit well (train and test scores are close). Random Forest overfits slightly (train ROC-AUC 0.90, test 0.84).
 - **Underfitting check:** more powerful models did not do better, so the limit comes from the data, not from the model.
-- Most important features: `total_orders` (more orders = less churn) and `days_since_last_order` (more days = more churn).
+- Most important features: `total_orders` (more orders = less churn) and `tenure_days` (an old account with few orders = more churn).
 
 ### Sentiment analysis (Task F)
 Labels: rating 1-2 = Negative, 3 = Neutral, 4-5 = Positive. The model scores about **100%** on test data.
@@ -58,7 +59,7 @@ Labels: rating 1-2 = Negative, 3 = Neutral, 4-5 = Positive. The model scores abo
 
 1. **The company depends too much on Electronics.** Electronics gives about 70% of the net revenue, and only two headphone products give about 20%. If supply or demand for these few products drops, more than half of the income can fall at once. The company should grow the other categories (Home & Kitchen, Fashion, Sports).
 2. **Fashion has the highest return rate (about 11%)**, almost double the overall 6.7%. About 7.6% of the revenue goes back through returns. Better size charts and product photos can reduce returns and their handling cost.
-3. **Karachi and Lahore are the biggest markets (about 44% of revenue) and revenue grows every month.** Faster delivery and marketing in these two cities will pay off the most. The small drop in August 2026 compared with July should be watched. For retention, customers with **few orders and a long gap since the last order** are the most likely to churn, so they should receive win-back offers first.
+3. **Karachi and Lahore are the biggest markets (about 44% of revenue) and revenue grows every month.** Faster delivery and marketing in these two cities will pay off the most. The small drop in August 2026 compared with July should be watched. For retention, customers with **few orders compared to the age of their account** are the most likely to churn, so they should receive win-back offers first.
 
 ## 5. Project structure
 
