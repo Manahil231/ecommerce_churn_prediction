@@ -21,7 +21,7 @@ GREEN = "#2E9E6B"
 RED = "#D64545"
 AMBER = "#F2A93B"
 
-st.set_page_config(page_title="ShopIQ | Customer Intelligence", page_icon="🛍️", layout="wide")
+st.set_page_config(page_title="AI Powered E-Commerce Customer Intelligence System", page_icon="🛍️", layout="wide")
 
 # =====================================================================
 # 2) Design (CSS): banner, cards, badges
@@ -35,7 +35,7 @@ st.markdown(
     color: white; padding: 28px 34px; border-radius: 18px; margin-bottom: 22px;
     box-shadow: 0 8px 22px rgba(255,107,53,0.25);
 }
-.hero h1 {margin: 0; font-size: 2.1rem; color: white;}
+.hero h1 {margin: 0; font-size: 1.9rem; color: white; line-height: 1.25;}
 .hero p {margin: 6px 0 0 0; font-size: 1.05rem; opacity: 0.95; color: white;}
 .kpi {
     background: #FFFFFF; border-left: 6px solid #FF6B35; border-radius: 14px;
@@ -134,12 +134,12 @@ WITH sales AS (
 # 4) Header (banner) and sidebar menu
 # =====================================================================
 st.markdown(
-    '<div class="hero"><h1>🛍️ ShopIQ</h1>'
-    "<p>E-Commerce Customer Intelligence: sales dashboard, churn prediction and review sentiment in one place.</p></div>",
+    '<div class="hero"><h1>🛍️ AI Powered E-Commerce Customer Intelligence System</h1>'
+    "<p>Sales dashboard, customer churn prediction and review sentiment analysis in one place.</p></div>",
     unsafe_allow_html=True,
 )
 
-st.sidebar.markdown("## 🛍️ ShopIQ")
+st.sidebar.markdown("## 🛍️ Customer Intelligence")
 page = st.sidebar.radio(
     "Menu",
     ["📊 Dashboard", "🔮 Churn Prediction", "💬 Sentiment Analysis"],
@@ -448,5 +448,5 @@ elif page == "🔮 Churn Prediction":
 else:
     page_sentiment()
 
-st.markdown('<div class="footer">ShopIQ | Data Science Final Hackathon | Built with Streamlit</div>',
+st.markdown('<div class="footer">AI Powered E-Commerce Customer Intelligence System | Data Science Final Hackathon | Built with Streamlit</div>',
             unsafe_allow_html=True)

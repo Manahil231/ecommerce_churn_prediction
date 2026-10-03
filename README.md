@@ -1,4 +1,4 @@
-# ShopIQ: E-Commerce Customer Intelligence
+# AI Powered E-Commerce Customer Intelligence System
 
 An end-to-end Data Science project built for the **Data Science Final Hackathon**. It starts from a raw SQLite database and ends with a deployed **Streamlit** app that has a sales dashboard, a customer churn predictor and a review sentiment analyzer.
 
