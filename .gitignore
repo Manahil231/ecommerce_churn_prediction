@@ -1,0 +1,7 @@
+venv/
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.vscode/
+.env
+Final_Data_Science_Hackathon_Student_Task.pdf
